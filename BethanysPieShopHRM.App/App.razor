@@ -1,13 +1,40 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <PageTitle>Bethany's Pie Shop</PageTitle>
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@using System.Reflection
+@inject LazyAssemblyLoader LazyAssemblyLoader
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@lazyLoadedAssemblies" OnNavigateAsync="@OnNavigateAsync">
+        <Found Context="routeData">
+            <PageTitle>Bethany's Pie Shop</PageTitle>
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <Authorizing>
+                    <p>Determining session state, please wait...</p>
+                </Authorizing>
+                <NotAuthorized>
+                    <h1>Sorry</h1>
+                    <p>You're not authorized to reach this page. You need to <a href="/authentication/login">log in.</a></p>
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code {
+    private List<Assembly> lazyLoadedAssemblies = new List<Assembly>();
+
+    private async Task OnNavigateAsync(NavigationContext args)
+    {
+        if (args.Path.Contains("employeedetail"))
+        {
+            var assemblies = await LazyAssemblyLoader.LoadAssembliesAsync(new string[] { "BethanysPieShopHRM.ComponentsLibrary.dll" });
+            lazyLoadedAssemblies.AddRange(assemblies);
+        }
+    }
+}

@@ -19,11 +19,14 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
                     <div class="nav-link">
-                        <InboxCounter></InboxCounter>
+                        <AuthorizeView>
+                            <InboxCounter></InboxCounter>
+                        </AuthorizeView>
                     </div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link">
+                        <AuthenticationStatus></AuthenticationStatus>
                     </div>
                 </li>
             </ul>

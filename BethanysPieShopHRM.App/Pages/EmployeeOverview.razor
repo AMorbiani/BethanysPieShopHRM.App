@@ -1,8 +1,7 @@
 ﻿@page "/EmployeeOverview"
-
 <PageTitle>@Title</PageTitle>
-
 <h2>Employee Overview</h2>
+@attribute [Authorize]
 
 @if (Employees == null)
 { 

@@ -1,4 +1,5 @@
 ﻿using BethanysPieShopHRM.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -6,6 +7,7 @@ namespace BethanysPieShopHRM.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CountryController : Controller
     {
         private readonly ICountryRepository _countryRepository;
