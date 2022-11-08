@@ -31,9 +31,9 @@
 
     private async Task OnNavigateAsync(NavigationContext args)
     {
-        if (args.Path.Contains("employeedetail"))
+        if (args.Path.Contains("EmployeeDetail"))
         {
-            var assemblies = await LazyAssemblyLoader.LoadAssembliesAsync(new string[] { "BethanysPieShopHRM.ComponentsLibrary.dll" });
+            var assemblies = await LazyAssemblyLoader.LoadAssembliesAsync(new string[] { "BethanysPieShopHRM.Component.Library.dll" });
             lazyLoadedAssemblies.AddRange(assemblies);
         }
     }
