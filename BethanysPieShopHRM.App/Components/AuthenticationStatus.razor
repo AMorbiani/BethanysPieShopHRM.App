@@ -7,7 +7,7 @@
 <AuthorizeView>
     <Authorized>
         <h4>
-            Hello, @context.User.Identity.Name!
+            @Localizer["WelcomeAuthorizationMessage {0}", context.User.Identity.Name]
             <a class="text-white text-decoration-none d-inline-block" href="#" @onclick="BeginSignOut">Log out</a>
         </h4>
     </Authorized>

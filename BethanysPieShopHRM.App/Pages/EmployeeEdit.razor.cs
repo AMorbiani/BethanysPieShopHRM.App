@@ -53,6 +53,13 @@ namespace BethanysPieShopHRM.App.Pages
                 Employee = await EmployeeDataService.GetEmployeeById(int.Parse(EmployeeId));
             }
         }
+
+        private IBrowserFile selectedFile;
+        private void OnInputFileChange(InputFileChangeEventArgs e)
+        {
+            selectedFile = e.File;
+            StateHasChanged();
+        }
         protected async Task HandleValidSubmit()
         {
             Saved = false;
@@ -135,14 +142,6 @@ namespace BethanysPieShopHRM.App.Pages
         public void NavigateToOverview()
         {
             NavigationManager.NavigateTo($"/EmployeeOverview");
-        }
-
-        private IBrowserFile selectedFile;
-        private void OnInputFileChange(InputFileChangeEventArgs e)
-        {
-            selectedFile = e.File;
-            StateHasChanged();
-        }
-
+        }    
     }
 }

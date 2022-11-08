@@ -1,0 +1,19 @@
+﻿@inherits TestContext
+
+@code {
+    public InboxWidgetTests()
+    {
+        this.Services.AddScoped<ApplicationState>();
+    }
+
+    [Fact]
+    public void RenderInboxWidgetWithValueGreaterThanZero()
+    {
+        var applicationState = this.Services.GetService<ApplicationState>();
+        applicationState.NumberOfMessages = 5;
+
+        var cut = Render(@<InboxWidget></InboxWidget>);
+
+        cut.Find("#showInboxMessage").MarkupMatches(@"<h4 id=""showInboxMessage"">You currently have 5 questions from employees!</h4>");
+    }
+}

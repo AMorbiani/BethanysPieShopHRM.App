@@ -1,0 +1,49 @@
+﻿@using BethanysPieShopHRM.Shared.Domain
+
+@inherits TestContext
+
+@code {
+
+    private Employee _employee;
+
+    public EmployeeCardTests()
+    {
+        var jobCategory = new JobCategory { JobCategoryId = 3, JobCategoryName = "Management" };
+        var country = new Country { CountryId = 1, Name = "Belgium" };
+
+        _employee = new Employee
+            {
+                MaritalStatus = MaritalStatus.Single,
+                BirthDate = new DateTime(1989, 3, 11),
+                City = "Brussels",
+                Email = "bethany@bethanyspieshop.com",
+                EmployeeId = 1,
+                FirstName = "Bethany",
+                LastName = "Smith",
+                Gender = Gender.Female,
+                PhoneNumber = "324777888978978",
+                Smoker = false,
+                Street = "Grote Markt 1",
+                Zip = "1000",
+                JobCategory = jobCategory,
+                JobCategoryId = jobCategory.JobCategoryId,
+                Comment = "Lorem Ipsum",
+                ExitDate = null,
+                JoinedDate = new DateTime(2015, 3, 1),
+                Country = country,
+                CountryId = country.CountryId
+            };
+    }
+
+    [Fact]
+    public void RenderEmployeeCardName()
+    {
+        var cut = Render(@<EmployeeCard Employee="_employee" />);
+
+        cut.Find("#employeeName").MarkupMatches(@"<div id=""employeeName"" class=""card-header py-3""><h4>Bethany Smith</h4></div>");
+    }
+
+}
+
+
+

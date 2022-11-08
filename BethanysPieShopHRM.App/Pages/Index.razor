@@ -1,12 +1,12 @@
 ﻿@page "/"
 
-<h1 class="page-title">Welcome to Bethany's Pie Shop HRM!</h1>
+<h1 class="page-title">@Localizer["WelcomeMessage"]</h1>
 <br />
-<h3>Using this application, you can manage our wonderful staff working for us all over the world.</h3>
+<h3>@Localizer["IntroMessage"]</h3>
 <br />
 <AuthorizeView>
     <Authorized>
-        <h1>YOU ARE AUTHORIZED</h1>
+        <h1>@Localizer["AuthorizedMessage"]</h1>
         <br />
         @foreach (var widget in Widgets)
         {
@@ -14,6 +14,6 @@
         }
     </Authorized>
     <NotAuthorized>
-        <h1>YOU ARE NOT AUTHORIZED</h1>
+        <h1>@Localizer["NotAuthorizedMessage"]</h1>
     </NotAuthorized>
 </AuthorizeView>
